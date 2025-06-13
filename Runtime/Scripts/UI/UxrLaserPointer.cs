@@ -312,6 +312,14 @@ namespace UltimateXR.UI
             return pointerEventData.HasData;
         }
 
+        /// <summary>
+        ///     Joystick ui scroll input for PointerInputModule
+        /// </summary>
+        public Vector2 ScrollInput()
+        {
+            return Avatar.ControllerInput.GetInput2D(_handSide, UxrInput2D.Joystick);
+        }
+
         #endregion
 
         #region Unity
