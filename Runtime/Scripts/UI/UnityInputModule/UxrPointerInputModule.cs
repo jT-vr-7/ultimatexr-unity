@@ -964,9 +964,6 @@ namespace UltimateXR.UI.UnityInputModule
             FetchPointerEventData(laserPointer, out UxrPointerEventData data, true);
             data.Reset();
 
-            // TODO: Add scroll support using thumbstick?
-            // leftData.scrollDelta = ...
-
             data.button           = PointerEventData.InputButton.Left;
             data.useDragThreshold = true;
             data.PreviousWorldPos = data.WorldPos;
@@ -983,6 +980,17 @@ namespace UltimateXR.UI.UnityInputModule
             RaycastResult raycast = FindFirstRaycast(m_RaycastResultCache, data);
             m_RaycastResultCache.Clear();
 
+            // Thumbstick scroll
+            data.scrollDelta = laserPointer.Scrolling();
+            if (data.IsScrolling())
+            {
+                GameObject scrollTarget = ExecuteEvents.GetEventHandler<IScrollHandler>(raycast.gameObject);
+                if (scrollTarget != null)
+                {
+                    ExecuteEvents.Execute(scrollTarget, data, ExecuteEvents.scrollHandler);
+                }
+            }
+            
             // Raycasts are performed using length to canvas. If no raycast was found, raycast using laser length first.
 
             bool colliderRaycastProcessed = false;
