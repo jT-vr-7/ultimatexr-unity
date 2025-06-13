@@ -71,6 +71,8 @@ namespace UltimateXR.Devices.Integrations.SteamVR
         public override bool IsControllerEnabled(UxrHandSide handSide)
         {
 #if ULTIMATEXR_USE_STEAMVR_SDK
+            if (OpenVR.System == null) return false; // Remove NullReferenceException: when exiting play mode
+            
             if (s_controllerList.TryGetValue(GetType().Name, out List<int> controllerIndices))
             {
                 return controllerIndices.Contains(handSide == UxrHandSide.Left
