@@ -664,7 +664,7 @@ namespace UltimateXR.Editor.Manipulation
                         }
                     }
 
-                    if ((!rotatesUsingHandPositionAroundPivot && _propAdditionalGrabPoints.arraySize > 0) || !grabbableObject.UsesGrabbableParentDependency)
+                    if ((!rotatesUsingHandPositionAroundPivot && _propAdditionalGrabPoints.arraySize > 0) || !grabbableObject.UsesGrabbableParentDependency || grabbableObject.ControlParentDirection)
                     {
                         EditorGUILayout.PropertyField(_propLockedGrabReleaseDistance, ContentLockedGrabReleaseDistance);
                     }
